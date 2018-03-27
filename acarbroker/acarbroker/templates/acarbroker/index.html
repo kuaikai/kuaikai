@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>OK</title>
+</head>
+<body>
+{% if prescreen == True %}
+<p>Started evaluation job.</p>
+{% elif prescreen == False %}
+<p>Failure. {{ prescreen_reason }}</p>
+{% endif %}
+<form enctype="multipart/form-data" method="post" action="/">
+  {% csrf_token %}
+  <input type="file" name="user_upload">
+  <input type="submit" name="submit" value="submit">
+</form>
+<h2>list of jobs</h2>
+<ul>
+{% for job in jobs %}
+<li>{{ job.starttime }}, {{ job.done }}{% if job.result %}, {{ job.result }}{% endif %}</li>
+{% endfor %}
+</ul>
+</body>
+</html>
