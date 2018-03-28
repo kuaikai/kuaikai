@@ -17,8 +17,8 @@ Debian-derived (`apt` package management) GNU/Linux distribution should work.
 While developing, you do not need to satisfy all of the requirements for
 deployment. It should suffice to install the following:
 
-* Django <https://djangoproject.com/>
-* Celery <http://celeryproject.org/>
+* Django <https://www.djangoproject.com/>
+* Celery <http://www.celeryproject.org/>
 * LXD <https://linuxcontainers.org/lxd/>
 
 At the time of writing, Django database migrations are not committed to the
