@@ -14,5 +14,8 @@ hardware-in-the-loop simulations, before being granted time with the real cars
 on the racetrack.
 
 .. toctree::
+   :numbered:
    :maxdepth: 2
    :caption: Contents:
+
+   interface
