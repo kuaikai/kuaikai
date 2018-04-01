@@ -10,11 +10,22 @@ submissions from users.
 Requirements of submission
 --------------------------
 
-1. ``build.sh``
-2. ``start.sh``
-3. ``stop.sh``
-4. ``post.sh``: script to run at end of trial, e.g., if user wants to upload
-   logs to somewhere off-site
+All shell scripts are run in ``bash``. If any script has nonzero exitcode, or if
+a timeout is reached in any evaluation context, then the trial ends immediately
+and is marked as failure.
 
-Any other files can be included, at the choice of the participant. but there is
-a file size bound.
+1. ``build.sh``: run once at the start of the simulation, and not called
+   again. The purpose of this script is to build executable files that are used
+   in all evaluation texts. To reduce load on computer resources, the build
+   process should only occur once.
+2. ``start.sh``: start the controller in each of the evaluation contexts:
+   simulation, hardware-in-the-loop sim, actual car on racetrack.
+3. ``stop.sh``: stop the controller. The purpose of this script is to allow
+   clean shutdown of the controller when some termination conditions are met,
+   e.g., finally passing the finish line on the racetrack.
+4. ``post.sh``: run at end of trial, after a successful call to ``stop.sh``,
+   e.g., if user wants to upload logs to somewhere off-site
+
+Any other files can be included, at the choice of the participant, but there is
+a file size bound. Every context in which user-submitted code is running has a
+time bound.
