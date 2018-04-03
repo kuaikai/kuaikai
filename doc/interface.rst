@@ -7,6 +7,10 @@ Introduction
 The purpose of this section is to document the interface available to
 submissions from users.
 
+.. WARNING::
+   Until the first version release, details of the interface can change without
+   notice.
+
 Requirements of submission
 --------------------------
 
