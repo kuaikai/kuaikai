@@ -28,4 +28,5 @@ and is marked as failure.
 
 Any other files can be included, at the choice of the participant, but there is
 a file size bound. Every context in which user-submitted code is running has a
-time bound.
+time bound. Furthermore, there are bounds on available computational resources,
+such as memory size. At this time, the bounds are not fixed.
