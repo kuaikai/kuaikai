@@ -9,13 +9,24 @@ set -e
 
 sudo apt-get -y update && sudo apt-get -y dist-upgrade
 sudo apt-get -y install fail2ban nginx postgresql rabbitmq-server
+sudo apt-get -y install python3-virtualenv
 
 sudo /etc/init.d/rabbitmq-server stop
 sudo cp -f etc/rabbitmq-env.conf /etc/rabbitmq/
 sudo /etc/init.d/rabbitmq-server start
 
 cd /var/lib/postgresql
-sudo -u postgres createuser -D -R -S alice
-sudo -u postgres createdb -O alice alicedb
+sudo -u postgres createuser -D -R -S acb
+sudo -u postgres createdb -O acb acbdb
 
 sudo systemctl stop postgresql.service
+
+if ! grep \^acb /etc/passwd; then
+    sudo useradd -m -s /bin/bash -U acb
+fi
+sudo usermod -L acb
+export HOME=/home/acb
+
+cd $HOME
+sudo -u acb python3 -m virtualenv PY
+sudo -u acb bash -c "source ${HOME}/PY/bin/active && pip install -U && pip install gunicorn django python-memcached"
