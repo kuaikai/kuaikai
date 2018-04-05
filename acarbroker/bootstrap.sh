@@ -8,8 +8,13 @@
 set -e
 
 sudo apt-get -y update && sudo apt-get -y dist-upgrade
-sudo apt-get -y install fail2ban nginx postgresql rabbitmq-server
+sudo apt-get -y install fail2ban supervisor nginx postgresql rabbitmq-server
 sudo apt-get -y install python3-virtualenv
+
+sudo nginx -s stop
+
+sudo systemctl stop supervisor.service
+sudo systemctl disable supervisor.service
 
 sudo /etc/init.d/rabbitmq-server stop
 sudo cp -f etc/rabbitmq-env.conf /etc/rabbitmq/
