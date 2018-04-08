@@ -34,3 +34,12 @@ Any other files can be included, at the choice of the participant, but there is
 a file size bound. Every context in which user-submitted code is running has a
 time bound. Furthermore, there are bounds on available computational resources,
 such as memory size. At this time, the bounds are not fixed.
+
+Trials and jobs
+---------------
+
+The entire evaluation of a submission is referred to as a **trial**. Evaluation
+is performed as a sequence of **jobs**, beginning with simulation. If any job
+ends with failure, then the trial stops and is marked as failure. Otherwise,
+measurements from the final job of executing the submitted controller on a
+freely moving car are saved from completed trials.
