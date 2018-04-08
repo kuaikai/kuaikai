@@ -26,6 +26,8 @@ sudo -u postgres createdb -O acb acbdb
 
 sudo systemctl stop postgresql.service
 
+sudo cp -f etc/nginx.conf /etc/nginx/
+
 if ! grep \^acb /etc/passwd; then
     sudo useradd -m -s /bin/bash -U acb
 fi
