@@ -18,9 +18,9 @@ from . import tasks
 from .models import SimJob
 
 
-def index(request):
+def submit(request):
     if not request.user.is_authenticated:
-        return render(request, 'acarbroker/signin.html')
+        return HttpResponseRedirect(reverse('signin'))
     MAX_FILESIZE = 5 * 2**20
     context = {
         'prescreen': None,
@@ -53,12 +53,12 @@ def index(request):
             })
     except:
         pass
-    return render(request, 'acarbroker/index.html', context)
+    return render(request, 'acarbroker/submit.html', context)
 
 
 def signin(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('index'))
+        return HttpResponseRedirect(reverse('submit'))
 
     if 'username' in request.POST and 'password' in request.POST:
         user = authenticate(request,
@@ -66,5 +66,5 @@ def signin(request):
                             password=request.POST['password'])
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('submit'))
     return render(request, 'acarbroker/signin.html')
