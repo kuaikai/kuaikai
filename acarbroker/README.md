@@ -7,10 +7,10 @@ a robot car on a physical racetrack.
 
 # Deployment
 
-There is a bootstrap script that should be sufficient to obtain all required
-dependencies and to create a system configuration that is ready for
-deployment. The reference platform for it is Ubuntu 16.04, but any modern
-Debian-derived (`apt` package management) GNU/Linux distribution should work.
+bootstrap.sh is a shell script that should be sufficient to obtain all required
+dependencies and to create a system configuration that is ready for deployment.
+The reference platform for it is Ubuntu 16.04, but any modern Debian-derived
+(`apt` package management) GNU/Linux distribution should work.
 
 # Development
 
