@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>{% load static %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title></title>
+
+<link href="{% static 'acarbroker/extern/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'acarbroker/extern/css/sticky-footer.css' %}" rel="stylesheet">
+
+<script src="{% static 'acarbroker/extern/js/jquery.min.js' %}"></script>
+<script src="{% static 'acarbroker/extern/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+
+{% block body %}{% endblock %}
+
+<footer class="footer">
+  <div class="container">
+    <a href="https://github.com/kuaikai/kuaikai">This website is open source.</a>
+  </div>
+</footer>
+</body>
+</html>
