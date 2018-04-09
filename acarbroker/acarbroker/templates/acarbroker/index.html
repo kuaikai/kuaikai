@@ -2,13 +2,13 @@
 {% block body %}
 <h1>快·开 (kuai kai)</h1>
 <h2>list of jobs</h2>
-<table>
+<table class="table">
 <thead><tr><th>start time</th><th>done?</th><th>result (if done)</th></tr></thead>
 {% for job in jobs %}
 <tr>
   <td>{{ job.starttime }}</td>
   <td>{{ job.done }}</td>
-  <td>{% if job.result %}{{ job.result }}{% else %}...{% endif %}</td>
+  <td>{% if job.result %}{{ job.result }}{% endif %}</td>
 </tr>
 {% endfor %}
 </table>
