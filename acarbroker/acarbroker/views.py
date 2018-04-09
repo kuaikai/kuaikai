@@ -18,6 +18,24 @@ from . import tasks
 from .models import SimJob
 
 
+def index(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('signin'))
+    context = {
+        'jobs': [],
+    }
+    try:
+        for job in SimJob.objects.iterator():
+            context['jobs'].append({
+                'starttime': job.starttime,
+                'result': job.result,
+                'done': job.done,
+            })
+    except:
+        pass
+    return render(request, 'acarbroker/index.html', context)
+
+
 def submit(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('signin'))
@@ -43,16 +61,6 @@ def submit(request):
                                         starttime=datetime.utcnow())
             job.save()
             tasks.simjob.delay(chunks, job.pk)
-    context['jobs'] = []
-    try:
-        for job in SimJob.objects.iterator():
-            context['jobs'].append({
-                'starttime': job.starttime,
-                'result': job.result,
-                'done': job.done,
-            })
-    except:
-        pass
     return render(request, 'acarbroker/submit.html', context)
 
 
