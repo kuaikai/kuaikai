@@ -27,7 +27,7 @@ def index(request):
     try:
         for job in SimJob.objects.iterator():
             context['jobs'].append({
-                'starttime': job.starttime,
+                'starttime': job.starttime.strftime('%a, %d %b %Y %T %z'),
                 'result': job.result,
                 'done': job.done,
             })
