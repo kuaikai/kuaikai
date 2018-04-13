@@ -8,7 +8,7 @@
 set -e
 
 sudo apt-get -y update && sudo apt-get -y dist-upgrade
-sudo apt-get -y install fail2ban supervisor nginx postgresql rabbitmq-server
+sudo apt-get -y install fail2ban supervisor nginx postgresql rabbitmq-server memcached
 sudo apt-get -y install python3-virtualenv
 
 sudo nginx -s stop
@@ -36,4 +36,4 @@ export HOME=/home/acb
 
 cd $HOME
 sudo -u acb python3 -m virtualenv PY
-sudo -u acb bash -c "source ${HOME}/PY/bin/active && pip install -U && pip install gunicorn django python-memcached"
+sudo -u acb bash -c "source ${HOME}/PY/bin/active && pip install -U && pip install gunicorn django python-memcached celery"
