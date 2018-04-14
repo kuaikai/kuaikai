@@ -20,13 +20,13 @@ sudo /etc/init.d/rabbitmq-server stop
 sudo cp -f etc/rabbitmq-env.conf /etc/rabbitmq/
 sudo /etc/init.d/rabbitmq-server start
 
+sudo cp -f etc/nginx.conf /etc/nginx/
+
 cd /var/lib/postgresql
 sudo -u postgres createuser -D -R -S acb
 sudo -u postgres createdb -O acb acbdb
 
 sudo systemctl stop postgresql.service
-
-sudo cp -f etc/nginx.conf /etc/nginx/
 
 if ! grep \^acb /etc/passwd; then
     sudo useradd -m -s /bin/bash -U acb
