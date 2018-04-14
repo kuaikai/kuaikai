@@ -1,3 +1,5 @@
 db.sqlite3
 /etc/django-secret.key
 /acarbroker/static/acarbroker/extern
+/shipit.tgz
+/static_to_deploy/
