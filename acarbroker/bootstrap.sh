@@ -11,7 +11,7 @@ sudo apt-get -y update && sudo apt-get -y dist-upgrade
 sudo apt-get -y install fail2ban supervisor nginx postgresql rabbitmq-server memcached
 sudo apt-get -y install python3-virtualenv
 
-sudo nginx -s stop
+sudo nginx -s stop || true
 
 sudo systemctl stop supervisor.service
 sudo systemctl disable supervisor.service
@@ -22,11 +22,10 @@ sudo /etc/init.d/rabbitmq-server start
 
 sudo cp -f etc/nginx.conf /etc/nginx/
 
+sudo systemctl start postgresql.service
 cd /var/lib/postgresql
 sudo -u postgres createuser -D -R -S acb
 sudo -u postgres createdb -O acb acbdb
-
-sudo systemctl stop postgresql.service
 
 if ! grep \^acb /etc/passwd; then
     sudo useradd -m -s /bin/bash -U acb
@@ -36,4 +35,4 @@ export HOME=/home/acb
 
 cd $HOME
 sudo -u acb python3 -m virtualenv PY
-sudo -u acb bash -c "source ${HOME}/PY/bin/active && pip install -U && pip install gunicorn django python-memcached celery"
+sudo -u acb bash -c "source ${HOME}/PY/bin/activate && pip install -U pip && pip install gunicorn django python-memcached celery"
