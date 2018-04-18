@@ -5,7 +5,8 @@ SCL <scott@rerobots.net>
 """
 from __future__ import absolute_import
 
-from django.urls import path
+from django.conf import settings
+from django.urls import path, include
 
 from . import views
 
@@ -15,3 +16,9 @@ urlpatterns = [
     path('submit', views.submit, name='submit'),
     path('signin', views.signin, name='signin'),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
