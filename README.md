@@ -19,6 +19,8 @@ README that introduces it.
 * `acarbroker`: Web app for receiving user submissions and evaluating them in
   pure simulation and, then, hardware-in-the-loop simulation.
 
+* `cars`: source code for support of specific car models.
+
 * `doc`: sources for the user guide, developer guide, references, implementation
   details about hardware-in-the-loop simulation, racetrack layout, etc.  The
   documentation is written using [reStructuredText](
