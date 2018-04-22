@@ -21,6 +21,12 @@ deployment. It should suffice to install the following:
 * Celery <http://www.celeryproject.org/>
 * LXD <https://linuxcontainers.org/lxd/>
 
+To aid in development, the [django-debug-toolbar](
+https://github.com/jazzband/django-debug-toolbar/) is enabled when `DEBUG=True`.
+All together, the requirements for development besides LXD can be satisfied from
+
+    pip install celery django django-debug-toolbar
+
 At the time of writing, Django database migrations are not committed to the
 repository. So, to begin, try
 
