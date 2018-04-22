@@ -3,3 +3,4 @@ db.sqlite3
 /acarbroker/static/acarbroker/extern
 /shipit.tgz
 /static_to_deploy/
+/bootstrapit.tgz

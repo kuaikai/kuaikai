@@ -23,15 +23,20 @@ sudo /etc/init.d/rabbitmq-server start
 sudo cp -f etc/nginx.conf /etc/nginx/
 
 sudo systemctl start postgresql.service
-cd /var/lib/postgresql
+pushd /var/lib/postgresql
 sudo -u postgres createuser -D -R -S acb
 sudo -u postgres createdb -O acb acbdb
+popd
 
 if ! grep \^acb /etc/passwd; then
     sudo useradd -m -s /bin/bash -U acb
 fi
 sudo usermod -L acb
 export HOME=/home/acb
+
+mkdir $HOME/etc
+mv etc/supervisord.conf $HOME/etc/
+mv etc/django-secret.key $HOME/etc/
 
 cd $HOME
 sudo -u acb python3 -m virtualenv PY
