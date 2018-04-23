@@ -12,7 +12,7 @@ with open(os.path.join(BASE_DIR, 'etc', 'django-secret.key')) as fp:
     SECRET_KEY = fp.read()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
