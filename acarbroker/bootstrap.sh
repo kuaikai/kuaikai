@@ -8,7 +8,7 @@
 set -e
 
 sudo apt-get -y update && sudo apt-get -y dist-upgrade
-sudo apt-get -y install fail2ban supervisor nginx postgresql rabbitmq-server memcached
+sudo apt-get -y install fail2ban supervisor nginx postgresql rabbitmq-server memcached docker.io
 sudo apt-get -y install python3-virtualenv
 
 sudo nginx -s stop || true
@@ -23,13 +23,14 @@ sudo /etc/init.d/rabbitmq-server start
 sudo cp -f etc/nginx.conf /etc/nginx/
 
 sudo systemctl start postgresql.service
-pushd /var/lib/postgresql
+CWD=`pwd`
+cd /var/lib/postgresql
 sudo -u postgres createuser -D -R -S acb
 sudo -u postgres createdb -O acb acbdb
-popd
+cd $CWD
 
 if ! grep \^acb /etc/passwd; then
-    sudo useradd -m -s /bin/bash -U acb
+    sudo useradd -m -s /bin/bash -G docker -U acb
 fi
 sudo usermod -L acb
 export HOME=/home/acb
