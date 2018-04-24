@@ -5,3 +5,4 @@ db.sqlite3
 /static_to_deploy/
 /bootstrapit.tgz
 /etc/auth0-secret.key
+/etc/auth0-clientid.key
