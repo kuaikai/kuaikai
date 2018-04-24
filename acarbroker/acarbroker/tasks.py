@@ -34,13 +34,13 @@ def simjob(file_chunks, job_id):
             tf.getmember(fname)
         tf.close()
 
-        # Create LXD container for it
+        # Create Docker container for it
         container_name = 'simjob-{}'.format(job_id)
-        subprocess.check_call(['lxc', 'launch', '-e', 'ubuntu-1604', container_name])
-        subprocess.check_call(['lxc', 'file', 'push', '--',
-                               path, container_name + '/root/'])
+        subprocess.check_call(['docker', 'run', '-t', '-d', '--name', container_name, 'kuaikai/donkeycar-sim:latest'])
+        subprocess.check_call(['docker', 'cp',
+                               path, container_name + ':/root/'])
 
-        cp = subprocess.run(['lxc', 'exec', container_name, '--',
+        cp = subprocess.run(['docker', 'exec', container_name,
                              '/bin/tar', '-vxzf', '/root/' + filename],
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT,
@@ -48,7 +48,7 @@ def simjob(file_chunks, job_id):
                             timeout=15)
         cp.check_returncode()
 
-        cp = subprocess.run(['lxc', 'exec', container_name, '--',
+        cp = subprocess.run(['docker', 'exec', container_name,
                              '/root/build.sh'],
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT,
@@ -56,7 +56,7 @@ def simjob(file_chunks, job_id):
                             timeout=60)
         cp.check_returncode()
 
-        cp = subprocess.run(['lxc', 'exec', container_name, '--',
+        cp = subprocess.run(['docker', 'exec', container_name,
                              '/root/start.sh'],
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT,
@@ -82,4 +82,4 @@ def simjob(file_chunks, job_id):
         if path is not None:
             os.unlink(path)
         if container_name is not None:
-            cp = subprocess.run(['lxc', 'stop', '-f', container_name])
+            cp = subprocess.run(['docker', 'rm', '-f', container_name])
