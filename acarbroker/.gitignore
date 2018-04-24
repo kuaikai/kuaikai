@@ -4,3 +4,4 @@ db.sqlite3
 /shipit.tgz
 /static_to_deploy/
 /bootstrapit.tgz
+/etc/auth0-secret.key
