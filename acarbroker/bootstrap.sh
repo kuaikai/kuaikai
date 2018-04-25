@@ -35,9 +35,8 @@ fi
 sudo usermod -L acb
 export HOME=/home/acb
 
-mkdir $HOME/etc
-mv etc/supervisord.conf $HOME/etc/
-mv etc/django-secret.key $HOME/etc/
+sudo mv etc ${HOME}/
+sudo chown -R acb:acb ${HOME}/etc
 
 cd $HOME
 sudo -u acb python3 -m virtualenv -p python3 PY
