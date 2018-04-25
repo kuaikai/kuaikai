@@ -16,7 +16,19 @@
 </head>
 <body>
 
+<div class="container-fluid"><div class="row">
+  <div class="col-md-10 col-sm-10 col-xs-10">
 {% block body %}{% endblock %}
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-2">
+{% if request.user.is_authenticated %}
+  <a href="{% url 'signout' %}">sign-out</a>
+{% else %}
+  <a href="{% url 'signin' %}">sign-in</a>
+{% endif %}
+  </div>
+</div></div>
+
 
 <footer class="footer">
   <div class="container"><div class="row">
