@@ -7,3 +7,5 @@ db.sqlite3
 /etc/auth0-secret.key
 /etc/auth0-clientid.key
 /etc/config
+/etc/snakeoil.crt
+/etc/snakeoil.key
