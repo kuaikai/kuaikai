@@ -41,4 +41,4 @@ mv etc/django-secret.key $HOME/etc/
 
 cd $HOME
 sudo -u acb python3 -m virtualenv PY
-sudo -u acb bash -c "source ${HOME}/PY/bin/activate && pip install -U pip && pip install gunicorn django python-memcached celery requests pyjwt cryptography"
+sudo -u acb bash -c "source ${HOME}/PY/bin/activate && pip install -U pip && pip install gunicorn django psycopg2 python-memcached celery requests pyjwt cryptography"
