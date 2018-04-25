@@ -15,6 +15,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('submit', views.submit, name='submit'),
     path('signin', views.signin, name='signin'),
+    path('signout', views.signout, name='signout'),
+    path('complete/auth0', views.complete_auth0, name='complete_auth0'),
 ]
 
 if settings.DEBUG:

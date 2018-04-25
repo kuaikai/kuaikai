@@ -18,7 +18,6 @@ ALLOWED_HOSTS = []
 
 INTERNAL_IPS = ['127.0.0.1']
 
-
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -34,6 +33,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.PersistentRemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -80,6 +80,20 @@ else:
         }
     }
 
+# SECURITY WARNING: keep the secret key used in production secret!
+with open(os.path.join(BASE_DIR, 'etc', 'auth0-clientid.key')) as fp:
+    AUTH0_CLIENT_ID = fp.read()
+with open(os.path.join(BASE_DIR, 'etc', 'auth0-secret.key')) as fp:
+    AUTH0_CLIENT_SECRET = fp.read()
+
+if DEBUG:
+    AUTH0_REDIRECT_URI = 'http://127.0.0.1:8000/complete/auth0'
+else:
+    AUTH0_REDIRECT_URI = 'https://nv.rerobots.net/complete/auth0'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.RemoteUserBackend',
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
