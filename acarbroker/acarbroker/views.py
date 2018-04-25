@@ -23,7 +23,7 @@ from cryptography.hazmat.primitives import serialization
 from . import views
 from . import tasks
 from .models import SimJob
-from .settings import AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, AUTH0_REDIRECT_URI
+from .settings import AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, AUTH0_REDIRECT_URI, AUTH0_TENANT_DOMAIN
 
 
 def index(request):
@@ -73,7 +73,7 @@ def submit(request):
 def signin(request):
     if request.user.is_authenticated:
         HttpResponseRedirect(reverse('index'))
-    return HttpResponseRedirect('https://kuaikai.auth0.com/authorize?'
+    return HttpResponseRedirect('https://{}/authorize?'.format(AUTH0_TENANT_DOMAIN)
                                 + 'response_type=code&'
                                 + 'client_id={}&'.format(AUTH0_CLIENT_ID)
                                 + 'redirect_uri={}&'.format(AUTH0_REDIRECT_URI)
@@ -100,7 +100,7 @@ def complete_auth0(request):
         'code': request.GET['code'],
         'redirect_uri': AUTH0_REDIRECT_URI,
     }
-    res = requests.post('https://kuaikai.auth0.com/oauth/token',
+    res = requests.post('https://{}/oauth/token'.format(AUTH0_TENANT_DOMAIN),
                         headers=headers,
                         data=json.dumps(payload))
     if not res.ok:
@@ -108,7 +108,7 @@ def complete_auth0(request):
     id_token = res.json()['id_token']
     header = json.loads(base64.urlsafe_b64decode(id_token.split('.')[0]))
 
-    res = requests.get('https://kuaikai.auth0.com/.well-known/jwks.json')
+    res = requests.get('https://{}/.well-known/jwks.json'.format(AUTH0_TENANT_DOMAIN))
     if not res.ok:
         raise Http404()
     jwks = res.json()
@@ -131,7 +131,7 @@ def complete_auth0(request):
         payload = jwt.decode(id_token,
                              key=kpem,
                              audience=AUTH0_CLIENT_ID,
-                             issuer='https://kuaikai.auth0.com/')
+                             issuer='https://{}/'.format(AUTH0_TENANT_DOMAIN))
     except:
         raise Http404()
 

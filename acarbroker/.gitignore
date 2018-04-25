@@ -6,3 +6,4 @@ db.sqlite3
 /bootstrapit.tgz
 /etc/auth0-secret.key
 /etc/auth0-clientid.key
+/etc/config
