@@ -86,9 +86,9 @@ else:
         }
     }
 
-# SECURITY WARNING: keep the secret key used in production secret!
 with open(os.path.join(BASE_DIR, 'etc', 'auth0-clientid.key')) as fp:
     AUTH0_CLIENT_ID = fp.read()
+# SECURITY WARNING: keep the secret key used in production secret!
 with open(os.path.join(BASE_DIR, 'etc', 'auth0-secret.key')) as fp:
     AUTH0_CLIENT_SECRET = fp.read()
 
