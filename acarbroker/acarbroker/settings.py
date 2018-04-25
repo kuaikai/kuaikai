@@ -129,7 +129,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'django.{}.log'.format(PID),
+            'filename': 'acarbroker.{}.log'.format(PID),
             'delay': True,
         },
         'console': {
