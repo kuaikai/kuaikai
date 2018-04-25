@@ -22,6 +22,8 @@ sudo /etc/init.d/rabbitmq-server start
 
 sudo cp -f etc/nginx.conf /etc/nginx/
 
+sudo cp -f etc/pg_hba.conf /etc/postgresql/9.5/main/
+
 sudo systemctl start postgresql.service
 CWD=`pwd`
 cd /var/lib/postgresql
