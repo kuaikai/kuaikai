@@ -97,7 +97,7 @@ AUTH0_TENANT_DOMAIN = CONFIG['site']['Auth0TenantDomain']
 if DEBUG:
     AUTH0_REDIRECT_URI = 'http://127.0.0.1:8000/complete/auth0'
 else:
-    AUTH0_REDIRECT_URI = 'https://{}/complete/auth0'.format(CONFIG['Domain'])
+    AUTH0_REDIRECT_URI = 'https://{}/complete/auth0'.format(CONFIG['site']['Domain'])
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.RemoteUserBackend',
