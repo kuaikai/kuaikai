@@ -1,9 +1,0 @@
-{% extends "acarbroker/base.html" %}
-{% block body %}
-<form method="post" action="/signin">
-{% csrf_token %}
-<label for="username">username:</label><input type="text" name="username" required><br />
-<label for="password">password:</label><input type="password" name="password" required><br />
-<input type="submit" name="signin" value="sign-in">
-</form>
-{% endblock %}
