@@ -106,7 +106,10 @@ def complete_auth0(request):
     if not res.ok:
         raise Http404()
     id_token = res.json()['id_token']
-    header = json.loads(base64.urlsafe_b64decode(id_token.split('.')[0]))
+    header = json.loads(str(
+        base64.urlsafe_b64decode(id_token.split('.')[0]),
+        encoding='utf-8'
+    ))
 
     res = requests.get('https://{}/.well-known/jwks.json'.format(AUTH0_TENANT_DOMAIN))
     if not res.ok:
