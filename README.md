@@ -11,6 +11,11 @@ times are saved to a leaderboard that ranks submissions according to best
 hardware-in-the-loop simulations, before being granted time with the real cars
 on the racetrack.
 
+## Websites
+
+Documentation releases are available at
+https://kuaikai.readthedocs.io/
+
 ## Organization
 
 Each directory that contains the source code of a major component will have a
