@@ -14,9 +14,8 @@ submissions from users.
 Requirements of submission
 --------------------------
 
-All shell scripts are run in ``bash``. If any script has nonzero exitcode, or if
-a timeout is reached in any evaluation context, then the trial ends immediately
-and is marked as failure.
+All shell scripts are run in ``bash``. If any script has nonzero exitcode, then
+the trial ends immediately and is marked as failure.
 
 1. ``build.sh``: run once at the start of the simulation, and not called
    again. The purpose of this script is to build executable files that are used
