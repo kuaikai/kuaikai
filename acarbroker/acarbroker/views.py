@@ -10,6 +10,7 @@ from datetime import datetime
 import json
 
 from django.contrib.auth import authenticate, login, logout
+from django.db.transaction import on_commit
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
@@ -65,8 +66,7 @@ def submit(request):
         if context['prescreen']:
             job = SimJob.objects.create(user=request.user,
                                         starttime=datetime.utcnow())
-            job.save()
-            tasks.simjob.delay(chunks, job.pk)
+            on_commit(lambda: tasks.simjob.delay(chunks, job.pk))
     return render(request, 'acarbroker/submit.html', context)
 
 
