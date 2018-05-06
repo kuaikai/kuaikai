@@ -63,7 +63,6 @@ def simjob(file_chunks, job_id):
                             universal_newlines=True,
                             timeout=3)
         cp.check_returncode()
-        assert 'OK' in cp.stdout
 
         os.unlink(path)
         path = None
