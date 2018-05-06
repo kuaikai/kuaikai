@@ -17,7 +17,7 @@ from celery import shared_task
 from .models import SimJob
 
 
-@shared_task
+@shared_task(ignore_result=True)
 def simjob(file_chunks, job_id):
     fd, path = tempfile.mkstemp()
     filename = os.path.basename(path)
