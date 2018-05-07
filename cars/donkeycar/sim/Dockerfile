@@ -4,10 +4,19 @@
 
 FROM continuumio/miniconda3:latest
 
-COPY build/donkey-master /root/extern/donkey-master/
+RUN bash -c "conda create -n PY && pip install -U pip"
 
+COPY Adafruit_PCA9685-pkg /root/extern/Adafruit_PCA9685-pkg/
+WORKDIR /root/extern/Adafruit_PCA9685-pkg
+RUN bash -c "source activate PY && pip install ."
+
+COPY picamera-pkg /root/extern/picamera-pkg/
+WORKDIR /root/extern/picamera-pkg
+RUN bash -c "source activate PY && pip install ."
+
+COPY build/donkey-master /root/extern/donkey-master/
 WORKDIR /root/extern/donkey-master
-RUN bash -c "conda create -n PY && source activate PY && pip install ."
+RUN bash -c "source activate PY && pip install .[pi]"
 
 WORKDIR /root
 ENTRYPOINT ["/bin/bash"]
