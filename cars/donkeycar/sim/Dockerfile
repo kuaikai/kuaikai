@@ -1,4 +1,10 @@
-# docker build -t kuaikai/donkeycar-sim:latest -f Dockerfile .
+# Docker image for simulation evaluation of Donkey car targets
+#
+# To build,
+#
+#     ./prepare.sh
+#     docker build -t kuaikai/donkeycar-sim:latest -f Dockerfile .
+#
 #
 # SCL <scott@rerobots.net>
 
