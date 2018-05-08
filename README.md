@@ -33,6 +33,12 @@ README that introduces it.
   https://sphinx.readthedocs.io/).
 
 
+## Participating
+
+All participation must follow our code of conduct, elaborated in the file
+CODE_OF_CONDUCT.md in the same directory as this README.
+
+
 ## License
 
 This is free software, released under the Apache License, Version 2.0.
