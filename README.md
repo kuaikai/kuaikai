@@ -38,6 +38,12 @@ README that introduces it.
 All participation must follow our code of conduct, elaborated in the file
 CODE_OF_CONDUCT.md in the same directory as this README.
 
+The issue tracker for this repository is at
+https://github.com/kuaikai/kuaikai/issues
+
+For details about getting help and contributing, read the [corresponding section
+of the manual](https://kuaikai.readthedocs.io/en/latest/help.html).
+
 
 ## License
 
