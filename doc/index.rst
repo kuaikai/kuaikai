@@ -19,3 +19,4 @@ on the racetrack.
    :caption: Contents:
 
    interface
+   help
