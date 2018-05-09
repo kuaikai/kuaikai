@@ -1,9 +1,11 @@
 import time
 
+import numpy as np
+
 
 class Frame:
     def __init__(self):
-        self.array = list()
+        self.array = np.zeros((120, 160, 3), dtype=np.uint8)
 
 class PiCamera:
     def __init__(self):
@@ -12,7 +14,6 @@ class PiCamera:
 
     def capture_continuous(self, capture, format, use_video_port):
         while True:
-            time.sleep(1)
             yield Frame()
 
     def close(self):
