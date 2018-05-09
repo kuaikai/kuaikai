@@ -1,3 +1,8 @@
+"""
+
+SCL <scott@rerobots.net>
+2018
+"""
 import time
 
 import numpy as np

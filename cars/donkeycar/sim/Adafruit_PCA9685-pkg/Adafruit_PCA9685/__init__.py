@@ -1,3 +1,10 @@
+"""
+
+SCL <scott@rerobots.net>
+2018
+"""
+
+
 class PCA9685:
     def __init__(self):
         pass
