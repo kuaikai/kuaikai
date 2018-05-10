@@ -6,11 +6,13 @@ SCL <scott@rerobots.net>
 from __future__ import absolute_import
 
 import base64
+import json
 import os
 import os.path
 import subprocess
 import tarfile
 import tempfile
+import time
 
 from celery import shared_task
 
@@ -39,6 +41,8 @@ def simjob(file_chunks, job_id):
         subprocess.check_call(['docker', 'run', '-t', '-d', '--name', container_name, 'kuaikai/donkeycar-sim:latest'])
         subprocess.check_call(['docker', 'cp',
                                path, container_name + ':/root/'])
+        os.unlink(path)
+        path = None
 
         cp = subprocess.run(['docker', 'exec', container_name,
                              '/bin/tar', '-vxzf', '/root/' + filename],
@@ -56,7 +60,7 @@ def simjob(file_chunks, job_id):
                             timeout=60)
         cp.check_returncode()
 
-        cp = subprocess.run(['docker', 'exec', container_name,
+        cp = subprocess.run(['docker', 'exec', '-d', container_name,
                              '/root/start.sh'],
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT,
@@ -64,12 +68,39 @@ def simjob(file_chunks, job_id):
                             timeout=3)
         cp.check_returncode()
 
-        os.unlink(path)
-        path = None
+        trace_files = []
+        action_taken = False
+        start_time = time.time()
+        while not action_taken and time.time() - start_time < 60:
+            time.sleep(2)
+            cp = subprocess.run(['docker', 'exec', container_name, 'bash', '-c', 'ls /tmp/kuaikai_sim_*'],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT,
+                                universal_newlines=True)
+            if cp.returncode == 0 and len(cp.stdout.strip()) > 0:
+                for name in cp.stdout.strip().split():
+                    if name not in trace_files:
+                        trace_files.append(name)
+            for trace_file in trace_files:
+                cp = subprocess.run(['docker', 'exec', container_name, 'tail', '-n', '1', trace_file],
+                                    stdout=subprocess.PIPE,
+                                    stderr=subprocess.STDOUT,
+                                    universal_newlines=True)
+                cp.check_returncode()
+                if len(cp.stdout) > 0:
+                    try:
+                        trace_item = json.loads(cp.stdout)
+                        if 'fcn' in trace_item and trace_item['fcn'] == 'set_pwm':
+                            action_taken = True
+                    except:
+                        pass
 
         # Mark sim job as done
         done = True
-        result = 'OK'
+        if action_taken:
+            result = 'OK'
+        else:
+            result = 'FAIL'
     except:
         done = True
         result = 'FAIL'
