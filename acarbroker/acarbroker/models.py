@@ -10,7 +10,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    pass
+    picture_url = models.URLField()
+    display_name = models.CharField(max_length=128)
 
 
 class SimJob(models.Model):

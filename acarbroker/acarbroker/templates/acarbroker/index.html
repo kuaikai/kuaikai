@@ -3,11 +3,12 @@
 <h1>快·开 (kuai kai)</h1>
 <h2>list of simulation jobs</h2>
 <table class="table">
-<thead><tr><th>start time</th><th>done?</th><th>result (if done)</th></tr></thead>
+<thead><tr><th>start time</th><th>user</th><th>done?</th><th>result (if done)</th></tr></thead>
 <tbody>
 {% for job in jobs %}
 <tr>
   <td>{{ job.starttime }}</td>
+  <td><img width="32" src="{{ job.user_picture_url }}" alt="avatar of {{ job.user_name }}" title="{{ job.user_name }}"></td>
   <td>{{ job.done }}</td>
   <td>{% if job.result %}{{ job.result }}{% endif %}</td>
 </tr>

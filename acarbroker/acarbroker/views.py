@@ -23,7 +23,7 @@ from cryptography.hazmat.primitives import serialization
 
 from . import views
 from . import tasks
-from .models import SimJob
+from .models import SimJob, User
 from .settings import AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, AUTH0_REDIRECT_URI, AUTH0_TENANT_DOMAIN
 
 
@@ -35,6 +35,8 @@ def index(request):
         for job in SimJob.objects.iterator():
             context['jobs'].append({
                 'starttime': job.starttime.strftime('%a, %d %b %Y %T %z'),
+                'user_name': job.user.display_name,
+                'user_picture_url': job.user.picture_url,
                 'result': job.result,
                 'done': job.done,
             })
@@ -139,6 +141,17 @@ def complete_auth0(request):
         raise Http404()
 
     user = authenticate(request, remote_user=payload['sub'])
+    if 'picture' in payload:
+        user.picture_url = payload['picture']
+    else:
+        user.picture_url = ''  # empty string => not known
+    if 'name' in payload:
+        user.display_name = payload['name']
+    elif 'nickname' in payload:
+        user.display_name = payload['nickname']
+    else:
+        user.display_name = str(user.username)
+    user.save()
     if user is not None:
         login(request, user)
         return HttpResponseRedirect(reverse('submit'))
