@@ -16,16 +16,36 @@
 </head>
 <body>
 
-<div class="container-fluid"><div class="row">
-  <div class="col-md-10 col-sm-10 col-xs-10">
-{% block body %}{% endblock %}
-  </div>
-  <div class="col-md-2 col-sm-2 col-xs-2">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#kuaikai-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'index' %}">快·开</a>
+    </div>
+    <div class="collapse navbar-collapse" id="kuaikai-nav">
+<ul class="nav navbar-nav navbar-right">
+<li><a href="{% url 'aboutus' %}">about us</a></li>
+<li><a href="">leaderboard</a></li>
+<li class="active"><a href="{% url 'simjobs' %}">simulations</a></li>
+<li><a href="{% url 'hwsim_index' %}">hardware-in-the-loop</a></li>
 {% if request.user.is_authenticated %}
-  <a href="{% url 'signout' %}">sign-out</a>
+<li><a href="{% url 'signout' %}">sign-out</a></li>
 {% else %}
-  <a href="{% url 'signin' %}">sign-in</a>
+<li><a href="{% url 'signin' %}">sign-in</a></li>
 {% endif %}
+</ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid"><div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+{% block body %}{% endblock %}
   </div>
 </div></div>
 

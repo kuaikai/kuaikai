@@ -28,11 +28,19 @@ from .settings import AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, AUTH0_REDIRECT_URI, 
 
 
 def index(request):
+    return render(request, 'acarbroker/index.html')
+
+
+def aboutus(request):
+    return render(request, 'acarbroker/aboutus.html')
+
+
+def simjobs(request):
     context = {
         'jobs': [],
     }
     try:
-        for job in SimJob.objects.iterator():
+        for job in SimJob.objects.order_by('-starttime')[:10]:
             context['jobs'].append({
                 'starttime': job.starttime.strftime('%a, %d %b %Y %T %z'),
                 'user_name': job.user.display_name,
@@ -42,7 +50,10 @@ def index(request):
             })
     except:
         pass
-    return render(request, 'acarbroker/index.html', context)
+    return render(request, 'acarbroker/simjobs.html', context)
+
+def hwsim_index(request):
+    return render(request, 'acarbroker/hwsim_index.html')
 
 
 def submit(request):

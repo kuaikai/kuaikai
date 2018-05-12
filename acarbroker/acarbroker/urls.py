@@ -14,6 +14,9 @@ from . import views
 app_name = 'acarbroker'
 urlpatterns = [
     path('', views.index, name='index'),
+    path('about', views.aboutus, name='aboutus'),
+    path('sim', views.simjobs, name='simjobs'),
+    path('hwsim', views.hwsim_index, name='hwsim_index'),
     path('submit', views.submit, name='submit'),
     path('signin', views.signin, name='signin'),
     path('signout', views.signout, name='signout'),
