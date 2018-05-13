@@ -27,6 +27,25 @@ from .models import SimJob, User
 from .settings import AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET, AUTH0_REDIRECT_URI, AUTH0_TENANT_DOMAIN
 
 
+def get_auth0mgmt_token():
+    headers = {
+        'Content-Type': 'application/json',
+    }
+    payload = {
+        'grant_type': 'client_credentials',
+        'client_id': AUTH0_CLIENT_ID,
+        'client_secret': AUTH0_CLIENT_SECRET,
+        'audience': 'https://{}/api/v2/'.format(AUTH0_TENANT_DOMAIN),
+    }
+    res = requests.post('https://{}/oauth/token'.format(AUTH0_TENANT_DOMAIN),
+                        headers=headers,
+                        data=json.dumps(payload))
+    if not res.ok:
+        return None
+    access_token = res.json()['access_token']
+    return access_token
+
+
 def index(request):
     return render(request, 'acarbroker/index.html')
 
@@ -144,26 +163,52 @@ def complete_auth0(request):
     )
 
     try:
-        payload = jwt.decode(id_token,
-                             key=kpem,
-                             audience=AUTH0_CLIENT_ID,
-                             issuer='https://{}/'.format(AUTH0_TENANT_DOMAIN))
+        auth_payload = jwt.decode(id_token,
+                                  key=kpem,
+                                  audience=AUTH0_CLIENT_ID,
+                                  issuer='https://{}/'.format(AUTH0_TENANT_DOMAIN))
     except:
         raise Http404()
 
-    user = authenticate(request, remote_user=payload['sub'])
-    if 'picture' in payload:
-        user.picture_url = payload['picture']
-    else:
-        user.picture_url = ''  # empty string => not known
-    if 'name' in payload:
-        user.display_name = payload['name']
-    elif 'nickname' in payload:
-        user.display_name = payload['nickname']
-    else:
-        user.display_name = str(user.username)
-    user.save()
+    user = authenticate(request, remote_user=auth_payload['sub'])
     if user is not None:
+        # Assign defaults here, in case of error when checking through
+        # Auth0 management API.
+        is_superuser = False
+        has_upload_permission = False
+
+        auth0mgmt_token = get_auth0mgmt_token()
+        print(auth0mgmt_token)
+        if auth0mgmt_token is not None:
+            headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer {}'.format(auth0mgmt_token),
+            }
+            res = requests.get('https://{}/api/v2/users/{}?'.format(AUTH0_TENANT_DOMAIN, auth_payload['sub'])
+                               + 'fields=app_metadata&include_fields=true',
+                               headers=headers)
+            if not res.ok:
+                raise Http404()
+            app_metadata = res.json()['app_metadata']
+            print(app_metadata)
+            if 'admin' in app_metadata:
+                is_superuser = app_metadata['admin']
+            if 'has_upload_permission' in app_metadata:
+                has_upload_permission = app_metadata['has_upload_permission']
+
+        user.is_superuser = is_superuser
+        user.has_upload_permission = has_upload_permission
+        if 'picture' in auth_payload:
+            user.picture_url = auth_payload['picture']
+        else:
+            user.picture_url = ''  # empty string => not known
+        if 'name' in auth_payload:
+            user.display_name = auth_payload['name']
+        elif 'nickname' in auth_payload:
+            user.display_name = auth_payload['nickname']
+        else:
+            user.display_name = str(user.username)
+        user.save()
         login(request, user)
         return HttpResponseRedirect(reverse('submit'))
     else:

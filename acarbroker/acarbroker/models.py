@@ -12,6 +12,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     picture_url = models.URLField()
     display_name = models.CharField(max_length=128)
+    has_upload_permission = models.BooleanField(default=False)
 
 
 class SimJob(models.Model):
