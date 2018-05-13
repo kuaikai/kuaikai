@@ -8,7 +8,7 @@
 {% for job in jobs %}
 <tr>
   <td>{{ job.starttime }}</td>
-  <td><img height="16" src="{{ job.user_picture_url }}" alt="avatar of {{ job.user_name }}" title="{{ job.user_name }}"></td>
+  <td>{% if job.user_picture_url %}<img height="16" src="{{ job.user_picture_url }}" alt="avatar of {{ job.user_name }}" title="{{ job.user_name }}">{% else %}job.user_name{% endif %}</td>
   <td>{{ job.done }}</td>
   <td>{% if job.result %}{{ job.result }}{% endif %}</td>
 </tr>
