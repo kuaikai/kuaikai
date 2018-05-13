@@ -31,7 +31,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li><a href="{% url 'aboutus' %}">about us</a></li>
 <li><a href="">leaderboard</a></li>
-<li class="active"><a href="{% url 'simjobs' %}">simulations</a></li>
+<li><a href="{% url 'simjobs' %}">simulations</a></li>
 <li><a href="{% url 'hwsim_index' %}">hardware-in-the-loop</a></li>
 {% if request.user.is_authenticated %}
 <li><a href="{% url 'signout' %}">sign-out</a></li>
