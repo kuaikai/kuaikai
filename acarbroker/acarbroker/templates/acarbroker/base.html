@@ -29,10 +29,10 @@
     </div>
     <div class="collapse navbar-collapse" id="kuaikai-nav">
 <ul class="nav navbar-nav navbar-right">
-<li><a href="{% url 'aboutus' %}">about us</a></li>
-<li><a href="">leaderboard</a></li>
-<li><a href="{% url 'simjobs' %}">simulations</a></li>
-<li><a href="{% url 'hwsim_index' %}">hardware-in-the-loop</a></li>
+<li class="{% block aboutus_btn_class %}{% endblock %}"><a href="{% url 'aboutus' %}">about us</a></li>
+<li class="{% block leaderboard_btn_class %}{% endblock %}"><a href="">leaderboard</a></li>
+<li class="{% block simjobs_btn_class %}{% endblock %}"><a href="{% url 'simjobs' %}">simulations</a></li>
+<li class="{% block hwsim_btn_class %}{% endblock %}"><a href="{% url 'hwsim_index' %}">hardware-in-the-loop</a></li>
 {% if request.user.is_authenticated %}
 <li><a href="{% url 'signout' %}">sign-out</a></li>
 {% else %}
