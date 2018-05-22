@@ -75,6 +75,10 @@ def hwsim_index(request):
     return render(request, 'acarbroker/hwsim_index.html')
 
 
+def leaderboards(request):
+    return render(request, 'acarbroker/leaderboards.html')
+
+
 def submit(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('signin'))

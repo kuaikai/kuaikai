@@ -17,6 +17,7 @@ urlpatterns = [
     path('about', views.aboutus, name='aboutus'),
     path('sim', views.simjobs, name='simjobs'),
     path('hwsim', views.hwsim_index, name='hwsim_index'),
+    path('leaderboard', views.leaderboards, name='leaderboards'),
     path('submit', views.submit, name='submit'),
     path('signin', views.signin, name='signin'),
     path('signout', views.signout, name='signout'),
