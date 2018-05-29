@@ -1,4 +1,28 @@
 {% extends "acarbroker/base.html" %}
 {% block aboutus_btn_class %}active{% endblock %}
 {% block body %}
+
+<div class="container">
+<div class="col-md-10 col-sm-12 col-xs-12">
+<h1>about us</h1>
+<h2>abstract</h2>
+<p>
+We propose a system for continuous evaluation of autonomous driving capabilities
+in high-speed racetracks. In the first implementation, the vehicles used on the
+racetrack will be small (1/16 or 1/10 of full-size). User-submitted controllers
+are evaluated remotely on real cars that can complete a racetrack circuit. Lap
+times are saved to a leaderboard that ranks submissions according to best
+(smallest) times. Potential users must pass simulation tests and, then,
+hardware-in-the-loop simulations, before being granted time with the real cars
+on the racetrack.
+</p>
+
+<h2>links</h2>
+<ul class="list-group">
+<li class="list-group-item"><a href="https://kuaikai.readthedocs.io/en/latest/">manual</a></li>
+<li class="list-group-item"><a href="https://github.com/kuaikai/kuaikai">main repository</a></li>
+<li class="list-group-item"><a href="https://github.com/kuaikai/examples">examples repository</a></li>
+</ul>
+
+
 {% endblock %}
