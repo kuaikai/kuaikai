@@ -19,4 +19,5 @@ on the racetrack.
    :caption: Contents:
 
    interface
+   cars
    help
