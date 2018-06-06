@@ -9,6 +9,6 @@ that provide the Donkey car target.
 
 ## Websites
 
-* http://docs.donkeycar.com/
+* https://docs.donkeycar.com/
 * https://github.com/wroscoe/donkey
 * https://diyrobocars.com/110th-scale-rc-style-car/
