@@ -5,7 +5,9 @@ Introduction
 ------------
 
 The purpose of this section is to document the cars that can be targets of
-evaluation.
+evaluation. In the sourcetree, directories in cars/ correspond to targets.
+Instructions to build and deploy each is described in the README of the
+respective directory.
 
 Donkey car
 ----------
