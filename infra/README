@@ -1,0 +1,9 @@
+Management of infrastructure
+============================
+
+Unless you are maintaining one of the official project servers, you will need to
+change the IP addresses and host names in `hosts`.
+
+Example:
+
+    ansible -i hosts all -m ping
